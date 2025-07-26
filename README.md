@@ -4,7 +4,7 @@ A highly personalized, feature-rich, and beautifully animated homepage designed 
 
 This project transforms the default new tab page into a dynamic, elegantly themed dashboard with persistent settings, editable favorites, and a fluid, native-like user experience. Built with minimal dependencies and designed to be incredibly fast and lightweight.
 
-Homepage.png
+![Homepage Screenshot](https://raw.githubusercontent.com/Yu-369/Homepage/main/Homepage.png)
 
 ## ✨ Key Features
 
