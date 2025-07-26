@@ -120,7 +120,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function openSettings() { document.body.classList.add('settings-open'); }
     function closeSettings() { if (document.body.classList.contains('edit-mode')) { document.body.classList.remove('edit-mode'); editFavoritesFab.classList.remove('active'); editFavoritesFab.querySelector('.material-symbols-outlined').textContent = 'edit'; } document.body.classList.remove('settings-open'); }
     settingsToggleBtn.addEventListener('click', openSettings); settingsCloseBtn.addEventListener('click', closeSettings); settingsOverlay.addEventListener('click', closeSettings);
-    const actionButtonToggles = document.querySelectorAll('input[type="checkbox"][data-target-id]'); const iconStyleToggle = document.getElementById('icon-style-toggle'); const settingRows = document.querySelectorAll('.switch-row'); settingRows.forEach(row => { row.addEventListener('click', function(event) { const input = row.querySelector('input'); if (input && event.target.tagName !== 'INPUT') { input.click(); } }); }); actionButtonToggles.forEach(toggle => { toggle.addEventListener('change', () => { const targetId = toggle.dataset.Id; const targetButton = document.getElementById(targetId); if (targetButton) { targetButton.classList.toggle('hidden', !toggle.checked); } localStorage.setItem(`setting_visibility_${targetId}`, toggle.checked); }); }); iconStyleToggle.addEventListener('change', () => { document.body.classList.toggle('icons-filled', iconStyleToggle.checked); localStorage.setItem('setting_iconStyle', iconStyleToggle.checked ? 'filled' : 'outlined'); });
+    const actionButtonToggles = document.querySelectorAll('input[type="checkbox"][data-target-id]'); const iconStyleToggle = document.getElementById('icon-style-toggle'); const settingRows = document.querySelectorAll('.switch-row'); settingRows.forEach(row => { row.addEventListener('click', function(event) { const input = row.querySelector('input'); if (input && event.target.tagName !== 'INPUT') { input.click(); } }); });     actionButtonToggles.forEach(toggle => {
+        toggle.addEventListener('change', () => {
+            // THIS LINE IS NOW CORRECT
+            const targetId = toggle.dataset.targetId; 
+            const targetButton = document.getElementById(targetId);
+            if (targetButton) {
+                targetButton.classList.toggle('hidden', !toggle.checked);
+            }
+            // This also fixes the localStorage saving
+            localStorage.setItem(`setting_visibility_${targetId}`, toggle.checked);
+        });
+    }); iconStyleToggle.addEventListener('change', () => { document.body.classList.toggle('icons-filled', iconStyleToggle.checked); localStorage.setItem('setting_iconStyle', iconStyleToggle.checked ? 'filled' : 'outlined'); });
     function loadSettings() { actionButtonToggles.forEach(toggle => { const targetId = toggle.dataset.targetId; const isVisible = localStorage.getItem(`setting_visibility_${targetId}`) !== 'false'; toggle.checked = isVisible; document.getElementById(targetId)?.classList.toggle('hidden', !isVisible); }); const iconStyle = localStorage.getItem('setting_iconStyle') || 'outlined'; iconStyleToggle.checked = iconStyle === 'filled'; document.body.classList.toggle('icons-filled', iconStyle === 'filled');}
     const searchForm = document.getElementById('search-form'); const searchInput = document.getElementById('search-input'); searchForm.addEventListener('submit', function(event) { event.preventDefault(); const query = searchInput.value.trim(); if (query) { let url; try { url = new URL(query); } catch (_) { if (query.includes('.') && !query.includes(' ')) { url = `https://${query}`; } else { url = `https://www.google.com/search?q=${encodeURIComponent(query)}`; } } window.location.href = url; } });
     const voiceSearchBtn = document.getElementById('mic-btn');
