@@ -26,6 +26,9 @@
           class="material-symbols-outlined">domino_mask</span></a><a href="#" id="mic-btn" class="action-btn"
         aria-label="Voice Search"><span class="material-symbols-outlined">mic</span></a><a href="#" id="lens-btn"
         class="action-btn" aria-label="Google Lens"><span class="material-symbols-outlined">photo_camera</span></a>
+        <a href="https://www.google.com/search?authuser=0&udm=50&aep=25&hl=en&source=searchlabs" id="ai-btn" class="action-btn" aria-label="AI Mode">
+            <span class="material-symbols-outlined">auto_awesome</span>
+        </a>
     </section>
 
     <section class="links-section">
@@ -61,16 +64,24 @@
     <div class="settings-content">
 
       <fieldset class="settings-group">
-        <legend>Action Buttons</legend>
-        <div class="switch-row"><label for="toggle-incognito-btn">Incognito</label><label class="switch"><input
-              type="checkbox" id="toggle-incognito-btn" data-target-id="incognito-btn" checked><span
-              class="slider"></span></label></div>
-        <div class="switch-row"><label for="toggle-mic-btn">Voice Search</label><label class="switch"><input
-              type="checkbox" id="toggle-mic-btn" data-target-id="mic-btn" checked><span class="slider"></span></label>
-        </div>
-        <div class="switch-row"><label for="toggle-lens-btn">Google Lens</label><label class="switch"><input
-              type="checkbox" id="toggle-lens-btn" data-target-id="lens-btn" checked><span
-              class="slider"></span></label></div>
+          <legend>Action Buttons</legend>
+          <p class="helper-text">Select up to 3 buttons to display.</p>
+          <div class="switch-row">
+              <label for="toggle-incognito-btn">Incognito</label>
+              <label class="switch"><input type="checkbox" class="action-button-toggle" id="toggle-incognito-btn" data-target-id="incognito-btn"><span class="slider"></span></label>
+          </div>
+          <div class="switch-row">
+              <label for="toggle-mic-btn">Voice Search</label>
+              <label class="switch"><input type="checkbox" class="action-button-toggle" id="toggle-mic-btn" data-target-id="mic-btn"><span class="slider"></span></label>
+          </div>
+          <div class="switch-row">
+              <label for="toggle-lens-btn">Google Lens</label>
+              <label class="switch"><input type="checkbox" class="action-button-toggle" id="toggle-lens-btn" data-target-id="lens-btn"><span class="slider"></span></label>
+          </div>
+          <div class="switch-row">
+              <label for="toggle-ai-btn">AI Mode</label>
+              <label class="switch"><input type="checkbox" class="action-button-toggle" id="toggle-ai-btn" data-target-id="ai-btn"><span class="slider"></span></label>
+          </div>
       </fieldset>
       <fieldset class="settings-group">
         <legend>Icon Style</legend>
