@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     settingsToggleBtn.addEventListener('click', openSettings);
     settingsCloseBtn.addEventListener('click', closeSettings);
     settingsOverlay.addEventListener('click', closeSettings);
-    const actionButtonToggles = document.querySelectorAll('input[type="checkbox"][data-target-id]');
+    const actionButtonToggles = document.querySelectorAll('.action-button-toggle');
     const iconStyleToggle = document.getElementById('icon-style-toggle');
     const settingRows = document.querySelectorAll('.switch-row');
     settingRows.forEach(row => {
@@ -179,6 +179,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     actionButtonToggles.forEach(toggle => {
         toggle.addEventListener('change', () => {
+            const checkedToggles = document.querySelectorAll('.action-button-toggle:checked');
+
+            // --- THE CORE LOGIC ---
+            if (checkedToggles.length > 3) {
+                alert("You can only select a maximum of 3 buttons.");
+                // Uncheck the box the user just clicked
+                toggle.checked = false; 
+                return; // Stop the function
+            }
+
             const targetId = toggle.dataset.targetId;
             const targetButton = document.getElementById(targetId);
             if (targetButton) {
@@ -192,12 +202,24 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('setting_iconStyle', iconStyleToggle.checked ? 'filled' : 'outlined');
     });
     function loadSettings() {
+        // Check if any settings exist. If not, set the default three.
+        const hasSettings = !!localStorage.getItem('setting_visibility_incognito-btn');
+
         actionButtonToggles.forEach(toggle => {
             const targetId = toggle.dataset.targetId;
-            const isVisible = localStorage.getItem(`setting_visibility_${targetId}`) !== 'false';
+            let isVisible;
+
+            if (hasSettings) {
+                isVisible = localStorage.getItem(`setting_visibility_${targetId}`) === 'true';
+            } else {
+                // Default state for first-time load
+                isVisible = (targetId === 'incognito-btn' || targetId === 'mic-btn' || targetId === 'lens-btn');
+            }
+
             toggle.checked = isVisible;
             document.getElementById(targetId)?.classList.toggle('hidden', !isVisible);
         });
+
         const iconStyle = localStorage.getItem('setting_iconStyle') || 'outlined';
         iconStyleToggle.checked = iconStyle === 'filled';
         document.body.classList.toggle('icons-filled', iconStyle === 'filled');
