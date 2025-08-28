@@ -672,3 +672,24 @@ input:checked+.slider:before {
     font-size: 0.75rem;
     max-width: 70px;
 }
+
+/* --- Expressive Gradient for AI Button --- */
+#ai-btn {
+    /* Step 1: Create a border, but make it transparent */
+    border: 2px solid transparent;
+
+    /* Step 2: Define two backgrounds. The first is the solid inner color,
+               the second is the colorful gradient for the border. */
+    background-image: 
+        linear-gradient(var(--md-sys-color-surface-container), var(--md-sys-color-surface-container)), 
+        linear-gradient(135deg, #FBCB0A, #34A853, #4285F4, #EA4335);
+
+    /* Step 3: Define where each background is drawn. */
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+/* Optional: Make the icon stand out a bit more */
+#ai-btn .material-symbols-outlined {
+    color: var(--md-sys-color-primary);
+}
