@@ -1,18 +1,26 @@
+/* Import the Google Sans font */
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap');
 
 /* --- THEME & ANIMATIONS --- */
 :root {
-    --md-sys-color-primary: #A8C7FA;
-    --md-sys-color-surface-container: #1F2328;
-    --md-sys-color-surface-container-high: #3A3E42;
-    --md-sys-color-on-surface: #E3E2E6;
-    --md-sys-color-on-surface-variant: #C4C6CF;
-    --md-sys-color-outline: #45474a;
-    --md-sys-color-background: #1B1B1F;
+    /* NEW: Deep Ocean Blue Theme */
+    --md-sys-color-primary: #62c6fd;
+    /* Your new accent color */
+    --md-sys-color-surface-container: #204254;
+    /* Lighter surface for pills */
+    --md-sys-color-surface-container-high: #2A4D61;
+    /* Hover/active state */
+    --md-sys-color-on-surface: #E0E2E4;
+    /* Main text color */
+    --md-sys-color-on-surface-variant: #BFC7CE;
+    /* Secondary text color */
+    --md-sys-color-outline: #445460;
+    /* Border color */
+    --md-sys-color-background: #12303F;
+    /* Your new main background color */
     --md-sys-color-error: #F2B8B5;
-    --md-sys-color-danger-overlay: rgba(242, 184, 181, 0.08);
     --font-primary: 'Google Sans', sans-serif;
-    --ripple-color: rgba(255, 255, 255, 0.1);
+    --ripple-color: rgba(98, 198, 253, 0.1);
     --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -102,9 +110,8 @@ body.settings-open .container {
     animation-delay: 0.26s;
 }
 
-.anim-load .links-section,
-.anim-load .suggestion-section { 
-    animation-delay: 0.34s; 
+.anim-load .links-section {
+    animation-delay: 0.34s;
 }
 
 /* --- RIPPLE EFFECT & INTERACTIVE SCALE --- */
@@ -112,8 +119,8 @@ body.settings-open .container {
 .link-card-content,
 .fab,
 #settings-close-btn,
-.radio-row,
-.switch-row {
+.switch-row,
+.hidden-site-row {
     position: relative;
     overflow: hidden;
     transition: transform 0.2s ease-out;
@@ -131,8 +138,8 @@ body.settings-open .container {
 .link-card-content:active,
 .fab:active,
 #settings-close-btn:active,
-.radio-row:active,
-.switch-row:active {
+.switch-row:active,
+.hidden-site-row:active {
     transform: scale(0.96);
 }
 
@@ -186,7 +193,7 @@ body.settings-open .container {
 .post-icon {
     font-size: 24px;
     color: var(--md-sys-color-on-surface-variant);
-    margin-left: 8px;
+    margin-left: 0px;
 }
 
 .action-buttons {
@@ -213,7 +220,7 @@ body.settings-open .container {
     color: var(--md-sys-color-on-surface-variant);
 }
 
-/* --- FAVORITES GRID & EDIT MODE STYLES --- */
+/* --- UNIFIED SMART GRID & EDIT MODE --- */
 .links-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -289,18 +296,6 @@ body.settings-open .container {
     background-color: var(--ripple-color);
 }
 
-body.edit-mode .link-card {
-    animation: wiggle 1s infinite;
-}
-
-body.edit-mode .link-card-content {
-    cursor: default;
-}
-
-body.edit-mode .delete-btn {
-    transform: scale(1);
-}
-
 @keyframes wiggle {
 
     0%,
@@ -313,31 +308,12 @@ body.edit-mode .delete-btn {
     }
 }
 
-.container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    background-color: var(--md-sys-color-danger-overlay);
-
-    border-radius: 28px;
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
-    pointer-events: none;
-    z-index: 1;
+body.edit-mode .link-card {
+    animation: wiggle 0.5s infinite;
 }
 
-.sortable-ghost {
-    opacity: 0.4;
-    background-color: var(--md-sys-color-primary) !important;
-}
-
-.sortable-chosen .link-card-content {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+body.edit-mode .delete-btn {
+    transform: scale(1);
 }
 
 .add-favorite-btn {
@@ -347,7 +323,7 @@ body.edit-mode .delete-btn {
     border: 2px dashed var(--md-sys-color-surface-container-high);
     background-color: transparent;
     border-radius: 999px;
-    min-height: 54px;
+    min-height: 52px;
     color: var(--md-sys-color-on-surface-variant);
     transition: all 0.2s ease-out;
     cursor: pointer;
@@ -360,27 +336,6 @@ body.edit-mode .delete-btn {
 
 .add-favorite-btn .material-symbols-outlined {
     font-size: 24px;
-}
-
-.action-btn.listening .material-symbols-outlined {
-    animation: pulse 1.5s infinite ease-out;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        color: var(--md-sys-color-on-surface-variant);
-    }
-
-    50% {
-        transform: scale(1.1);
-        color: var(--md-sys-color-primary);
-    }
-
-    100% {
-        transform: scale(1);
-        color: var(--md-sys-color-on-surface-variant);
-    }
 }
 
 /* --- FLOATING ACTION BUTTONS (FAB) STYLES --- */
@@ -635,61 +590,136 @@ input:checked+.slider:before {
     color: var(--md-sys-color-primary);
 }
 
-/* --- AI Suggestions Panel --- */
-.suggestion-section {
-    margin-top: 32px;
-}
-.suggestion-section h2 {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--md-sys-color-on-surface-variant);
-    margin-bottom: 16px;
-    padding: 0 8px;
-}
-.suggestion-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 16px;
-}
-.suggestion-chip {
+
+/* NEW: Styles for the hidden sites list */
+#hidden-sites-list {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+}
+
+.hidden-site-row {
+    display: flex;
     align-items: center;
-    text-decoration: none;
-    padding: 8px 0;
+    justify-content: space-between;
+    padding: 8px;
     border-radius: 12px;
-    transition: background-color 0.2s ease;
-}
-.suggestion-chip:active {
-    background-color: var(--ripple-color);
-}
-.suggestion-chip .icon-container {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 8px;
-}
-.suggestion-chip span {
-    font-size: 0.75rem;
-    max-width: 70px;
 }
 
-/* --- Expressive Gradient for AI Button --- */
-#ai-btn {
-    /* Step 1: Create a border, but make it transparent */
-    border: 2px solid transparent;
-
-    /* Step 2: Define two backgrounds. The first is the solid inner color,
-               the second is the colorful gradient for the border. */
-    background-image: 
-        linear-gradient(var(--md-sys-color-surface-container), var(--md-sys-color-surface-container)), 
-        linear-gradient(135deg, #FBCB0A, #34A853, #4285F4, #EA4335);
-
-    /* Step 3: Define where each background is drawn. */
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
+.hidden-site-row span {
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Optional: Make the icon stand out a bit more */
-#ai-btn .material-symbols-outlined {
-    color: var(--md-sys-color-primary);
+.unhide-btn {
+    background-color: var(--md-sys-color-surface-container-high);
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* --- DISCRETE SLIDER STYLES --- */
+.slider-wrap {
+    width: 100%;
+    position: relative;
+    padding: 48px 12px 20px;
+}
+
+.lane {
+    position: relative;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    margin: 0;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(to right, var(--md-sys-color-primary) 0%, var(--md-sys-color-primary) var(--pct, 0%), var(--md-sys-color-surface-container-high) var(--pct, 0%), var(--md-sys-color-surface-container-high) 100%);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 4px;
+    height: 28px;
+    margin-top: -8px;
+    border: 0;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 0 0 14px rgba(168, 199, 250, 0.18);
+}
+
+input[type="range"]::-moz-range-track {
+    height: 12px;
+    border-radius: 6px;
+    background: var(--md-sys-color-surface-container-high);
+}
+
+input[type="range"]::-moz-range-progress {
+    height: 12px;
+    border-radius: 6px;
+    background: var(--md-sys-color-primary);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 4px;
+    height: 28px;
+    border: none;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 0 0 14px rgba(168, 199, 250, 0.18);
+}
+
+.ticks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.ticks .tick {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .9);
+}
+
+output#bubble {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    transform: translateX(-50%);
+    background: var(--md-sys-color-on-surface);
+    color: var(--md-sys-color-background);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+output#bubble::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -6px;
+    border: 6px solid transparent;
+    border-top-color: var(--md-sys-color-on-surface);
 }
