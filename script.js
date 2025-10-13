@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target.closest('.delete-btn')) {
             return;
         }
-
         const button = event.currentTarget;
         const circle = document.createElement('span');
         const diameter = Math.max(button.clientWidth, button.clientHeight);
@@ -21,11 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
         circle.classList.add('ripple');
 
         const ripple = button.getElementsByClassName('ripple')[0];
-
         if (ripple) {
             ripple.remove();
         }
-
         button.appendChild(circle);
     }
 
@@ -93,11 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             linkCard.className = 'link-card';
             linkCard.dataset.url = site.url;
             linkCard.dataset.name = site.name;
-            linkCard.innerHTML = `<div class="link-card-content">
-                <div class="icon-container"><img src="https://www.google.com/s2/favicons?domain=${site.url}&sz=64" alt=""></div>
-                <span>${site.name}</span>
-                <button class="delete-btn" aria-label="Hide ${site.name}"><span class="material-symbols-outlined">close</span></button>
-            </div>`;
+            linkCard.innerHTML = `<div class="link-card-content"><div class="icon-container"><img src="https://www.google.com/s2/favicons?domain=${site.url}&sz=64" alt=""></div><span>${site.name}</span><button class="delete-btn" aria-label="Hide ${site.name}"><span class="material-symbols-outlined">close</span></button></div>`;
             linksGrid.appendChild(linkCard);
         });
 
@@ -118,8 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
             buildTicks();
             sliderInitialized = true;
         }
-        if (pillsSlider) updateSliderUI();
-        
+        if (pillsSlider) {
+            updateSliderUI();
+        }
         renderHiddenSitesList();
         document.body.classList.add('settings-open');
     }
@@ -130,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderHiddenSitesList() {
         hiddenSitesList.innerHTML = '';
-
         if (hiddenSites.length > 0) {
             hiddenSitesGroup.classList.remove('hidden');
             hiddenSites.forEach(url => {
@@ -201,8 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function buildTicks() {
         if (!ticks || !pillsSlider) return;
-        ticks.innerHTML = '';
 
+        ticks.innerHTML = '';
         const min = Number(pillsSlider.min);
         const max = Number(pillsSlider.max);
 
@@ -228,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const rect = pillsSlider.getBoundingClientRect();
         const wrapRect = sliderWrap.getBoundingClientRect();
         const x = (percent / 100) * (rect.width - 4) + 2;
-
         bubble.style.left = `${x + rect.left - wrapRect.left}px`;
     }
 
@@ -243,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('resize', updateSliderUI);
 
-    // --- H. OTHER LOGIC (SEARCH, BUTTONS, SETTINGS) ---
+    // --- H. OTHER LOGIC (BUTTONS, SETTINGS) ---
     editFavoritesFab.addEventListener('click', () => {
         const isEditing = document.body.classList.toggle('edit-mode');
         editFavoritesFab.classList.toggle('active', isEditing);
@@ -297,9 +289,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (hasSettings) {
                 isVisible = localStorage.getItem(`setting_visibility_${targetId}`) === 'true';
             } else {
+                // Default settings if none are saved
                 isVisible = (targetId === 'mic-btn' || targetId === 'lens-btn' || targetId === 'ai-btn');
             }
-
             toggle.checked = isVisible;
             document.getElementById(targetId)?.classList.toggle('hidden', !isVisible);
         });
@@ -317,45 +309,48 @@ document.addEventListener('DOMContentLoaded', function() {
         'wikipedia': 'https://en.wikipedia.org/wiki/Special:Search?search='
     };
 
+    // --- SEARCH LOGIC ---
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const query = searchInput.value.trim();
-
         if (!query) return;
 
-        // 1. Check if input is a direct URL
-        try {
-            const url = new URL(query.includes('://') ? query : `https://${query}`);
-            trackSiteVisit(url.href);
-            renderSmartGrid();
-            window.location.href = url.href;
-            return;
-        } catch (e) {
-            /* Not a valid URL, continue */
+        // 1. Check if it's a URL-like string (contains a dot or protocol).
+        if (query.includes('.') || query.includes('://')) {
+            try {
+                const url = new URL(query.includes('://') ? query : `https://${query}`);
+                trackSiteVisit(url.href);
+                renderSmartGrid(); // Update grid in background
+                window.location.href = url.href;
+                return;
+            } catch (e) {
+                // If it looks like a URL but isn't valid, fall through to Google search.
+            }
         }
 
-        // 2. Check for site-specific search
+        // 2. Check for Smart Search keywords (e.g., "youtube cats").
         const queryParts = query.split(' ');
         const siteKeyword = queryParts[0].toLowerCase();
-
-        if (siteSearchPatterns[siteKeyword]) {
+        
+        if (siteSearchPatterns[siteKeyword] && queryParts.length > 1) {
             const siteUrl = new URL(siteSearchPatterns[siteKeyword]);
             const searchTerms = queryParts.slice(1).join(' ');
-
+            
+            // Assuming the search pattern uses the first query param for the search term
             siteUrl.searchParams.set(siteUrl.searchParams.keys().next().value, searchTerms);
-            trackSiteVisit(siteUrl.origin + '/');
-            renderSmartGrid();
+            
+            trackSiteVisit(siteUrl.origin + '/'); // Track the base domain
+            renderSmartGrid(); // Update grid in background
             window.location.href = siteUrl.href;
             return;
         }
 
-        // 3. Standard Google search
+        // 3. If all else fails, perform a standard Google search.
         window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
     });
 
     if (voiceSearchBtn) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
             recognition.continuous = false;
@@ -365,11 +360,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const query = event.results[0][0].transcript;
                 window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
             };
-
             recognition.onend = function() {
                 voiceSearchBtn.classList.remove('listening');
             };
-
             recognition.onerror = function(event) {
                 alert('Sorry, there was an error with the voice recognition.');
                 voiceSearchBtn.classList.remove('listening');
@@ -386,6 +379,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Sorry, your browser does not support voice search.');
             });
         }
+    }
+    
+    const incognitoBtn = document.getElementById('incognito-btn');
+    if (incognitoBtn) {
+        incognitoBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            window.open('about:blank', '_blank');
+        });
     }
 
     // --- I. INITIALIZE PAGE ---
