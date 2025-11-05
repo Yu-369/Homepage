@@ -1,18 +1,17 @@
 /* --- THEME & ANIMATIONS --- */
 :root {
-    /* NEW: Midnight Blue Theme */
-    --md-sys-color-primary: #62c6fd; /* Your new accent color */
-    --md-sys-color-surface-container: #00293d; /* Lighter surface for pills */
-    --md-sys-color-surface-container-high: #003652; /* Hover/active state */
-    --md-sys-color-on-surface: #E1E2E5; /* Main text color */
-    --md-sys-color-on-surface-variant: #BFC7CE; /* Secondary text color */
-    --md-sys-color-outline: #40484d; /* Border color */
-    --md-sys-color-background: #001624; /* Your new main background color */
+    /* DEEP OCEAN THEME (Primary Background) */
+    --md-sys-color-primary: #62c6fd;
+    --md-sys-color-surface-container: #204254;
+    --md-sys-color-surface-container-high: #2A4D61;
+    --md-sys-color-on-surface: #E0E2E4;
+    --md-sys-color-on-surface-variant: #BFC7CE;
+    --md-sys-color-outline: #445460;
+    --md-sys-color-background: #12303F; /* Main background color */
     
-    /* These variables below are updated or remain the same */
     --md-sys-color-error: #F2B8B5;
     --font-primary: 'Google Sans', sans-serif;
-    --ripple-color: rgba(98, 198, 253, 0.1); /* Ripple now matches the new accent */
+    --ripple-color: rgba(98, 198, 253, 0.1);
     --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -69,6 +68,27 @@ button {
     color: inherit;
     font: inherit;
     cursor: pointer;
+}
+
+/* --- Midnight Blue Pill Overrides --- */
+#search-form,
+.action-btn,
+.link-card-content,
+.fab {
+    /* The new, darker background for all pills */
+    --md-sys-color-surface-container: #00293d;
+    background-color: var(--md-sys-color-surface-container);
+}
+
+.add-favorite-btn {
+    /* Update the dashed border to match the new pill color */
+    --md-sys-color-surface-container-high: #003652;
+    border-color: var(--md-sys-color-surface-container-high);
+}
+
+.slider {
+    /* Update the slider track to match */
+    --md-sys-color-surface-container-high: #003652;
 }
 
 /* --- HELPER CLASSES --- */
