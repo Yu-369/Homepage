@@ -1,26 +1,18 @@
-/* Import the Google Sans font */
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap');
-
 /* --- THEME & ANIMATIONS --- */
 :root {
-    /* NEW: Deep Ocean Blue Theme */
-    --md-sys-color-primary: #62c6fd;
-    /* Your new accent color */
-    --md-sys-color-surface-container: #204254;
-    /* Lighter surface for pills */
-    --md-sys-color-surface-container-high: #2A4D61;
-    /* Hover/active state */
-    --md-sys-color-on-surface: #E0E2E4;
-    /* Main text color */
-    --md-sys-color-on-surface-variant: #BFC7CE;
-    /* Secondary text color */
-    --md-sys-color-outline: #445460;
-    /* Border color */
-    --md-sys-color-background: #001624;
-    /* Your new main background color */
+    /* NEW: Midnight Blue Theme */
+    --md-sys-color-primary: #62c6fd; /* Your new accent color */
+    --md-sys-color-surface-container: #00293d; /* Lighter surface for pills */
+    --md-sys-color-surface-container-high: #003652; /* Hover/active state */
+    --md-sys-color-on-surface: #E1E2E5; /* Main text color */
+    --md-sys-color-on-surface-variant: #BFC7CE; /* Secondary text color */
+    --md-sys-color-outline: #40484d; /* Border color */
+    --md-sys-color-background: #001624; /* Your new main background color */
+    
+    /* These variables below are updated or remain the same */
     --md-sys-color-error: #F2B8B5;
     --font-primary: 'Google Sans', sans-serif;
-    --ripple-color: rgba(98, 198, 253, 0.1);
+    --ripple-color: rgba(98, 198, 253, 0.1); /* Ripple now matches the new accent */
     --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
