@@ -3,14 +3,14 @@
 
 /* --- THEME & ANIMATIONS --- */
 :root {
-    /* DEEP OCEAN THEME (Primary Background) */
+    /* DEEP OCEAN THEME */
     --md-sys-color-primary: #62c6fd;
     --md-sys-color-surface-container: #204254;
     --md-sys-color-surface-container-high: #2A4D61;
     --md-sys-color-on-surface: #E0E2E4;
     --md-sys-color-on-surface-variant: #BFC7CE;
     --md-sys-color-outline: #445460;
-    --md-sys-color-background: #12303F; /* Main background color */
+    --md-sys-color-background: #12303F;
     
     --md-sys-color-error: #F2B8B5;
     --font-primary: 'Google Sans', sans-serif;
@@ -71,16 +71,6 @@ button {
     color: inherit;
     font: inherit;
     cursor: pointer;
-}
-
-/* --- Midnight Blue Pill Overrides --- */
-#search-form,
-.action-btn,
-.link-card-content,
-.fab {
-    /* The new, darker background for all pills */
-    --md-sys-color-surface-container: #00293d;
-    background-color: var(--md-sys-color-surface-container);
 }
 
 .add-favorite-btn {
