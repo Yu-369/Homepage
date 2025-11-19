@@ -13,26 +13,35 @@
 <body class="anim-load">
 
     <main class="container">
-        <!-- Sections 1-2 remain the same -->
-        <div class="logo-container"><img
-                src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google"
-                id="google-logo-img"></div>
+        <!-- 1. Logo (Now at the top) -->
+        <div class="logo-container">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" 
+                 alt="Google"
+                 id="google-logo-img">
+        </div>
+
+        <!-- 2. Search Section (With Suggestions) -->
         <section class="search-section">
-            <form id="search-form" action="https://www.google.com/search" method="get"><img
-                    src="https://crystalpng.com/wp-content/uploads/2025/05/google-logo.png" alt="G"
-                    class="pre-icon-img"><input type="text" id="search-input" name="q"
-                    placeholder="Search Google or type URL" autocomplete="off"><span
-                    class="material-symbols-outlined post-icon">search</span></form>
+            <form id="search-form" action="https://www.google.com/search" method="get">
+                <img src="https://crystalpng.com/wp-content/uploads/2025/05/google-logo.png" alt="G" class="pre-icon-img">
+                <input type="text" id="search-input" name="q" placeholder="Search Google or type URL" autocomplete="off">
+                <span class="material-symbols-outlined post-icon">search</span>
+            </form>
+            <div id="suggestions-box" class="hidden"></div>
         </section>
 
-        <!-- 3. Action Buttons (Incognito button removed) -->
+        <!-- 3. Action Buttons -->
         <section class="action-buttons">
-            <a href="#" id="mic-btn" class="action-btn" aria-label="Voice Search"><span
-                    class="material-symbols-outlined">mic</span></a>
-            <a href="https://www.google.com/?olud" id="lens-btn" class="action-btn" aria-label="Google Lens"><span
-                    class="material-symbols-outlined">photo_camera</span></a>
+            <a href="#" id="mic-btn" class="action-btn" aria-label="Voice Search">
+                <span class="material-symbols-outlined">mic</span>
+            </a>
+            <a href="https://www.google.com/?olud" id="lens-btn" class="action-btn" aria-label="Google Lens">
+                <span class="material-symbols-outlined">photo_camera</span>
+            </a>
             <a href="https://www.google.com/search?authuser=0&udm=50&aep=25&hl=en&source=searchlabs" id="ai-btn"
-                class="action-btn" aria-label="AI Mode"><span class="material-symbols-outlined">auto_awesome</span></a>
+                class="action-btn" aria-label="AI Mode">
+                <span class="material-symbols-outlined">auto_awesome</span>
+            </a>
         </section>
 
         <!-- 4. Favorites Section -->
@@ -57,39 +66,54 @@
         <div class="drag-handle"></div>
         <div class="settings-header">
             <h2>Settings</h2>
-            <button id="settings-close-btn" aria-label="Close Settings"><span
-                    class="material-symbols-outlined">close</span></button>
+            <button id="settings-close-btn" aria-label="Close Settings">
+                <span class="material-symbols-outlined">close</span>
+            </button>
         </div>
         <div class="settings-content">
 
             <fieldset class="settings-group">
                 <legend>Action Buttons</legend>
-                <div class="switch-row"><label for="toggle-mic-btn">Voice Search</label><label class="switch"><input
-                            type="checkbox" class="action-button-toggle" id="toggle-mic-btn"
-                            data-target-id="mic-btn"><span class="slider"></span></label>
+                <p class="helper-text">Select up to 3 buttons to display.</p>
+                <div class="switch-row">
+                    <label for="toggle-mic-btn">Voice Search</label>
+                    <label class="switch">
+                        <input type="checkbox" class="action-button-toggle" id="toggle-mic-btn" data-target-id="mic-btn">
+                        <span class="slider"></span>
+                    </label>
                 </div>
-                <div class="switch-row"><label for="toggle-lens-btn">Google Lens</label><label class="switch"><input
-                            type="checkbox" class="action-button-toggle" id="toggle-lens-btn"
-                            data-target-id="lens-btn"><span class="slider"></span></label></div>
-                <div class="switch-row"><label for="toggle-ai-btn">AI Mode</label><label class="switch"><input
-                            type="checkbox" class="action-button-toggle" id="toggle-ai-btn"
-                            data-target-id="ai-btn"><span class="slider"></span></label></div>
+                <div class="switch-row">
+                    <label for="toggle-lens-btn">Google Lens</label>
+                    <label class="switch">
+                        <input type="checkbox" class="action-button-toggle" id="toggle-lens-btn" data-target-id="lens-btn">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-row">
+                    <label for="toggle-ai-btn">AI Mode</label>
+                    <label class="switch">
+                        <input type="checkbox" class="action-button-toggle" id="toggle-ai-btn" data-target-id="ai-btn">
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </fieldset>
 
             <fieldset class="settings-group">
                 <legend>Icon Style</legend>
-                <div class="switch-row"><label for="icon-style-toggle">Outlined / Filled</label><label
-                        class="switch"><input type="checkbox" id="icon-style-toggle"><span
-                            class="slider"></span></label></div>
+                <div class="switch-row">
+                    <label for="icon-style-toggle">Outlined / Filled</label>
+                    <label class="switch">
+                        <input type="checkbox" id="icon-style-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </fieldset>
 
-            <!-- THIS IS THE RESTORED SLIDER BLOCK -->
             <fieldset class="settings-group">
                 <legend>Visible Sites</legend>
                 <div class="slider-wrap">
                     <div class="lane">
-                        <input id="pills-slider" type="range" min="1" max="9" step="1" value="6"
-                            aria-label="Number of visible pills">
+                        <input id="pills-slider" type="range" min="1" max="9" step="1" value="6" aria-label="Number of visible pills">
                         <div class="ticks" aria-hidden="true"></div>
                     </div>
                     <output id="bubble" for="pills-slider">6</output>
